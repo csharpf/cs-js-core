@@ -78,7 +78,7 @@ namespace cs_js_lib.type {
 
 		// returns the month (from 0-11)
 		public int getMonth() {
-			return v.Month;
+			return v.Month-1;
 		}
 
 		// returns the seconds (from 0-59)
@@ -128,7 +128,7 @@ namespace cs_js_lib.type {
 
 		// returns the month, according to universal time (from 0-11)
 		public int getUTCMonth() {
-			return v.ToUniversalTime().Month;
+			return v.ToUniversalTime().Month-1;
 		}
 
 		// returns the seconds, according to universal time (from 0-59)
@@ -163,7 +163,7 @@ namespace cs_js_lib.type {
 
 		// sets the month of a date object
 		public void setMonth(int val) {
-			v = v.AddMonths(-v.Month + val);
+			v = v.AddMonths(-v.Month + val+1);
 		}
 
 		// sets the seconds of a date object
@@ -209,7 +209,7 @@ namespace cs_js_lib.type {
 		// sets the month of a date object, according to universal time
 		public void setUTCMonth(int val) {
 			DateTime vutc = v.ToUniversalTime();
-			v = vutc.AddMonths(-vutc.Month + val).ToLocalTime();
+			v = vutc.AddMonths(-vutc.Month + val+1).ToLocalTime();
 		}
 
 		// set the seconds of a date object, according to universal time

@@ -4,7 +4,7 @@ using System;
 namespace cs_js_lib.type {
 
 	/// <summary>The Boolean object is an object wrapper for a boolean value.</summary>
-	struct BooleanJs {
+	public struct BooleanJs {
 
 		#region data
 		/// <summary>private: boolean data</summary>
@@ -21,7 +21,7 @@ namespace cs_js_lib.type {
 		/// <summary>Creates a Boolean wrapper object for a boolean value</summary>
 		/// <param name="value">Optional. The initial value of the Boolean object.</param>
 		public BooleanJs(string value) {
-			o = value.Length > 0 ? true : false;
+			o = value!=null && value.Length > 0 ? true : false;
 		}
 		/// <summary>Creates a Boolean wrapper object for a boolean value</summary>
 		/// <param name="value">Optional. The initial value of the Boolean object.</param>
@@ -42,6 +42,11 @@ namespace cs_js_lib.type {
 
 
 		#region convert
+		/// <summary>Implicitly converts primitive boolean type to Boolean object</summary>
+		/// <param name="value">boolean value</param>
+		public static implicit operator BooleanJs(bool value) {
+			return new BooleanJs(value);
+		}
 		/// <summary>Implicitly converts Boolean object to primitive boolean type</summary>
 		/// <param name="value">Boolean object</param>
 		public static implicit operator bool(BooleanJs value) {

@@ -45,10 +45,12 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="type\BooleanJs.cs" />
     <Compile Include="type\Date.cs" />
     <Compile Include="type\ArrayJs.cs" />
     <Compile Include="type\GlobalJs.cs" />
     <Compile Include="type\JsObject.cs" />
+    <Compile Include="type\MathJs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

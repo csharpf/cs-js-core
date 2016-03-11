@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-js-lib", "cs-js-lib\cs-js-lib.csproj", "{FDB028C8-E858-403C-8824-457C200CADF4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs-js-lib-test", "cs-js-lib-test\cs-js-lib-test.csproj", "{83D75C15-299C-43D8-8BEE-26CABF8AF6A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FDB028C8-E858-403C-8824-457C200CADF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDB028C8-E858-403C-8824-457C200CADF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDB028C8-E858-403C-8824-457C200CADF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83D75C15-299C-43D8-8BEE-26CABF8AF6A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83D75C15-299C-43D8-8BEE-26CABF8AF6A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83D75C15-299C-43D8-8BEE-26CABF8AF6A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83D75C15-299C-43D8-8BEE-26CABF8AF6A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

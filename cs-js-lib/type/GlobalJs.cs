@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+
 
 namespace cs_js_lib.type {
 	public class GlobalJs {
@@ -76,7 +72,7 @@ namespace cs_js_lib.type {
 		/// <returns>A Number. If the first character cannot be converted to a number, MinValue is returned</returns>
 		public static double ParseInt(string str, int radix=10) {
 			int o = int.MinValue;
-			int.
+			return o;
 		}
 	}
 }

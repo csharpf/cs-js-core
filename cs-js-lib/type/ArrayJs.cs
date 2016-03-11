@@ -4,7 +4,7 @@ using System.Text;
 
 namespace cs_js_lib.type {
 	public class ArrayJs<T> {
-		
+		/*
 
 		// data
 		private T[] Arr;
@@ -213,5 +213,6 @@ namespace cs_js_lib.type {
 				str.Append(o[i]).Append(',');
 			return str.Remove(str.Length - 1, 1).ToString();
 		}
+		*/
 	}
 }

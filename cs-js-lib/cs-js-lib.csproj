@@ -45,15 +45,19 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="type\BooleanJs.cs" />
-    <Compile Include="type\Date.cs" />
-    <Compile Include="type\ArrayJs.cs" />
-    <Compile Include="type\GlobalJs.cs" />
-    <Compile Include="type\JsObject.cs" />
-    <Compile Include="type\MathJs.cs" />
+    <Compile Include="js\BooleanJs.cs" />
+    <Compile Include="js\Date.cs" />
+    <Compile Include="js\ArrayJs.cs" />
+    <Compile Include="js\GlobalJs.cs" />
+    <Compile Include="js\Object.cs" />
+    <Compile Include="js\MathJs.cs" />
+    <Compile Include="js\String.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="web\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

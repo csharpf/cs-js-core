@@ -1,11 +1,12 @@
 ﻿using System;
-using cs_js_lib.type;
+using js;
 
 
 namespace cs_js_lib {
 	class Program {
 		static void Main(string[] args) {
-			Console.WriteLine(GlobalJs.DecodeURI(""));
+			Console.WriteLine(new Date(false));
+			Console.ReadKey();
 		}
 	}
 }

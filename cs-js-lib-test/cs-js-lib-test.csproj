@@ -52,6 +52,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="js\Number_test.cs" />
     <Compile Include="js\Object_test.cs" />
     <Compile Include="type\GlobalJs_test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

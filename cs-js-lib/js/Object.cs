@@ -82,14 +82,14 @@ namespace js {
 
 		/// <summary>Returns a string representing the object. This method is meant to be overridden by derived objects for locale-specific purposes.</summary>
 		/// <returns>Calls toString()</returns>
-		public string ToLocaleString() {
+		public virtual string ToLocaleString() {
 			return toString();
 		}
 
 
 		/// <summary>Returns a string representing object.</summary>
 		/// <returns>String representation of the object</returns>
-		public string toString() {
+		public virtual string toString() {
 			StringBuilder str = new StringBuilder('{');
 			foreach (string key in this)
 				str.AppendFormat("{0}: {1}, ", key, this[key]);

@@ -105,7 +105,7 @@ namespace js {
 
 		/// <summary>Returns the primitive value of the specified object.</summary>
 		/// <returns>Primitive value of the specified object</returns>
-		public object valueOf() {
+		public virtual object valueOf() {
 			return this;
 		}
 

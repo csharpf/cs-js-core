@@ -7,8 +7,8 @@ namespace js {
 	public class Number : Object {
 
 		#region static data
-		/// <summary>The smallest interval between two representable numbers.</summary>
-		public static readonly double EPSILON = double.Epsilon;
+		/// <summary>The difference between one and the smallest value greater than one that can be represented as a Number.</summary>
+		public static readonly double EPSILON = Math.Pow(2, -52);
 		/// <summary>The maximum safe integer in JavaScript (2^53 - 1).</summary>
 		public static readonly double MAX_SAFE_INTEGER = Math.Pow(2, 53) - 1;
 		/// <summary>The largest positive representable number.</summary>
@@ -16,7 +16,7 @@ namespace js {
 		/// <summary>The minimum safe integer in JavaScript (-(2^53 - 1)).</summary>
 		public static readonly double MIN_SAFE_INTEGER = -(Math.Pow(2, 53) - 1);
 		/// <summary>The smallest positive representable number - that is, the positive number closest to zero (without actually being zero).</summary>
-		public static readonly double MIN_VALUE = double.MinValue;
+		public static readonly double MIN_VALUE = double.Epsilon;
 		/// <summary>Special "not a number" value.</summary>
 		public static readonly double NaN = double.NaN;
 		/// <summary>Special value representing negative infinity; returned on overflow.</summary>
@@ -33,12 +33,11 @@ namespace js {
 
 
 		#region static method
-		/// <summary>Determine whether the passed value is NaN.</summary>
-		/// <param name="value">The value to be tested for NaN.</param>
-		/// <returns>Boolean indicating whether value is NaN.</returns>
-		public static bool isNaN(object value) {
-			if(value is Number) return double.IsNaN(((Number)value).o);
-			return value is double || value is float ? isNaN((double)value) : false;
+		/// <summary>Convert an object to double if it is a number, else return NaN</summary>
+		/// <param name="v">Value of object.</param>
+		/// <returns>Value of object as double, or NaN if it is not a number.</returns>
+		private static double? toDouble(object v) {
+			return v is IConvertible && !(v is string || v is char || v is bool)? Convert.ToDouble(v) : (v is Number? (double?)(Number)v : null);
 		}
 
 
@@ -46,36 +45,62 @@ namespace js {
 		/// <param name="value">The value to be tested for finiteness.</param>
 		/// <returns>Boolean indicating whether value is a finite number.</returns>
 		public static bool isFinite(object value) {
-			if (value is Number) return !double.IsInfinity(((Number)value).o);
-			return value is double || value is float ? isFinite((double)value) : false;
+			return toDouble(value) != null && isFinite((double)toDouble(value));
 		}
+		/// <summary>Determine whether the passed value is a finite number.</summary>
+		/// <param name="value">The value to be tested for finiteness.</param>
+		/// <returns>Boolean indicating whether value is a finite number.</returns>
+		public static bool isFinite(double value) {
+			return !double.IsInfinity(value) && !double.IsNaN(value);
+		}
+		
 
 
 		/// <summary>Determine whether the passed value is an integer.</summary>
 		/// <param name="value">The value to be tested for being an integer.</param>
 		/// <returns>Boolean indicating whether the target value is an integer (not NaN or infinite).</returns>
 		public static bool isInteger(object value) {
-			if (value is int || value is long || value is short || value is byte) return true;
-			return isSafeInteger(value);
+			return toDouble(value) != null && isInteger((double)toDouble(value));
+    }
+		/// <summary>Determine whether the passed value is an integer.</summary>
+		/// <param name="value">The value to be tested for being an integer.</param>
+		/// <returns>Boolean indicating whether the target value is an integer (not NaN or infinite).</returns>
+		public static bool isInteger(double value) {
+			return isFinite(value) && value == (long)value;
 		}
 
 
-		/// <summary>Determine whether the passed value is a safe integer (number between -(253 - 1) and 253 - 1).</summary>
+		/// <summary>Determine whether the passed value is NaN.</summary>
+		/// <param name="value">The value to be tested for NaN.</param>
+		/// <returns>Boolean indicating whether value is NaN.</returns>
+		public static bool isNaN(object value) {
+			// return value is float || value is double ? isNaN(Convert.ToDouble(value)) : (value is Number? isNaN((Number)value) : false);
+			return toDouble(value) != null && isNaN((double)toDouble(value)); 
+		}
+		/// <summary>Determine whether the passed value is NaN.</summary>
+		/// <param name="value">The value to be tested for NaN.</param>
+		/// <returns>Boolean indicating whether value is NaN.</returns>
+		public static bool isNaN(double value) {
+			return double.IsNaN(value);
+		}
+
+
+		/// <summary>Determine whether the passed value is a safe integer (number between -(2^53 - 1) and 2^53 - 1).</summary>
 		/// <param name="value">The value to be tested for being a safe integer.</param>
 		/// <returns>Boolean indicating whether the provided value is a number that is a safe integer.</returns>
 		public static bool isSafeInteger(object value) {
-			if (value is Number) return (int)((Number)value).o == ((Number)value).o;
-			return value is double || value is float || value is int || value is long || value is short || value is byte ? isSafeInteger(new Number((double)value)) : false;
+			double? v = toDouble(value);
+			return v != null && isInteger((double)v) && v >= -Math.Pow(2, -53) && v < Math.Pow(2, 53);
 		}
 
 
 		/// <summary>Parses a string argument and returns a floating point number.</summary>
 		/// <param name="str">A string that represents the value you want to parse.</param>
 		/// <returns>Floating-point number representaion of the string, or NaN if the first character cannot be converted to a number.</returns>
-		public static Number parseFloat(string str) {
+		public static double parseFloat(string str) {
 			double val = double.NaN;
 			double.TryParse(str, out val);
-			return new Number(val);
+			return val;
 		}
 
 
@@ -115,18 +140,6 @@ namespace js {
 		public static implicit operator double(Number value) {
 			return value.o;
 		}
-
-		public static implicit operator float(Number value) {
-			return (float)value.o;
-		}
-
-		public static implicit operator long (Number value) {
-			return (long)value.o;
-		}
-
-		public static implicit operator int(Number value) {
-			return (int)value.o;
-		}
 		#endregion
 
 
@@ -161,6 +174,10 @@ namespace js {
 
 		public override string toString() {
 			return o.ToString();
+		}
+
+		public override object valueOf() {
+			return o;
 		}
 		#endregion
 	}
